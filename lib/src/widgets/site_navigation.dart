@@ -11,81 +11,53 @@ class NavLink {
 }
 
 class SiteNavigationBar extends StatelessWidget {
-  const SiteNavigationBar({
-    required this.links,
-    required this.onMenuPressed,
-    super.key,
-  });
+  const SiteNavigationBar({required this.links, super.key});
 
   final List<NavLink> links;
-  final VoidCallback onMenuPressed;
 
   @override
   Widget build(BuildContext context) {
-    return SiteShell(
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final isCompact = constraints.maxWidth < 760;
+    final isCompact = MediaQuery.sizeOf(context).width < 760;
 
-          return Row(
-            children: [
-              const _BrandMark(),
-              const Spacer(),
-              if (isCompact)
-                IconButton(
-                  tooltip: 'Open navigation',
-                  onPressed: onMenuPressed,
-                  icon: const Icon(Icons.menu_rounded),
-                )
-              else
-                Row(
-                  children: [
-                    for (final link in links)
-                      TextButton(
-                        onPressed: link.onTap,
-                        child: Text(link.label),
-                      ),
-                  ],
-                ),
-            ],
-          );
-        },
+    return SiteShell(
+      child: Row(
+        children: [
+          const _BrandMark(),
+          const Spacer(),
+          if (isCompact)
+            _NavigationMenuButton(links: links)
+          else
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                for (final link in links)
+                  TextButton(onPressed: link.onTap, child: Text(link.label)),
+              ],
+            ),
+        ],
       ),
     );
   }
 }
 
-class SiteNavigationDrawer extends StatelessWidget {
-  const SiteNavigationDrawer({required this.links, super.key});
+class _NavigationMenuButton extends StatelessWidget {
+  const _NavigationMenuButton({required this.links});
 
   final List<NavLink> links;
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 18),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                child: _BrandMark(),
-              ),
-              const Divider(height: 32),
-              for (final link in links)
-                ListTile(
-                  title: Text(link.label),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    link.onTap();
-                  },
-                ),
-            ],
-          ),
-        ),
-      ),
+    return PopupMenuButton<NavLink>(
+      tooltip: 'Open navigation',
+      icon: const Icon(Icons.menu_rounded, color: AppColors.navy),
+      position: PopupMenuPosition.under,
+      onSelected: (link) => link.onTap(),
+      itemBuilder: (context) {
+        return [
+          for (final link in links)
+            PopupMenuItem(value: link, child: Text(link.label)),
+        ];
+      },
     );
   }
 }

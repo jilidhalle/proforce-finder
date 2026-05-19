@@ -48,43 +48,34 @@ class _HomePageState extends State<HomePage> {
     ];
 
     return Scaffold(
-      endDrawer: SiteNavigationDrawer(links: links),
-      body: Builder(
-        builder: (context) {
-          return CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                pinned: true,
-                automaticallyImplyLeading: false,
-                elevation: 0,
-                backgroundColor: AppColors.white.withValues(alpha: 0.96),
-                surfaceTintColor: AppColors.white,
-                toolbarHeight: 76,
-                titleSpacing: 0,
-                title: SiteNavigationBar(
-                  links: links,
-                  onMenuPressed: () => Scaffold.of(context).openEndDrawer(),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            automaticallyImplyLeading: false,
+            elevation: 0,
+            backgroundColor: AppColors.white.withValues(alpha: 0.96),
+            surfaceTintColor: AppColors.white,
+            toolbarHeight: 76,
+            titleSpacing: 0,
+            title: SiteNavigationBar(links: links),
+          ),
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                HeroSection(
+                  key: _homeKey,
+                  onRequestTalent: () => _scrollTo(_contactKey),
                 ),
-              ),
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    HeroSection(
-                      key: _homeKey,
-                      onRequestTalent: () => _scrollTo(_contactKey),
-                      onLearnMore: () => _scrollTo(_aboutKey),
-                    ),
-                    AboutSection(key: _aboutKey),
-                    ServicesSection(key: _servicesKey),
-                    WhyUsSection(key: _whyUsKey),
-                    ContactSection(key: _contactKey),
-                    const SiteFooter(),
-                  ],
-                ),
-              ),
-            ],
-          );
-        },
+                AboutSection(key: _aboutKey),
+                ServicesSection(key: _servicesKey),
+                WhyUsSection(key: _whyUsKey),
+                ContactSection(key: _contactKey),
+                const SiteFooter(),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

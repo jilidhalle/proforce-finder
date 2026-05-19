@@ -19,38 +19,30 @@ class ServicesSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SectionHeader(
-              eyebrow: 'Services',
-              title: 'Practical support from sourcing to readiness',
-              description:
-                  'Structured services designed for construction leaders who need dependable teams for demanding project environments.',
+              eyebrow: '',
+              title: 'Our Services',
             ),
             SizedBox(height: 34),
             ResponsiveGrid(
-              minItemWidth: 245,
+              minItemWidth: 340,
               children: [
                 FeatureCard(
                   icon: Icons.manage_search_rounded,
-                  title: 'Elite Talent Sourcing',
+                  title: 'Custom Workforce Recruitment & On-Site Evaluation',
                   description:
-                      'Finding experienced workers tailored to your specific needs.',
+                      "We identify and recruit construction professionals based on each client's specific needs. Our team conducts on-site evaluations in Portugal to ensure every candidate meets our professional standards before placement.",
                 ),
                 FeatureCard(
                   icon: Icons.fact_check_rounded,
-                  title: 'Professional Skill Assessment',
+                  title: 'Comprehensive Pre-Deployment Preparation',
                   description:
-                      'Ensuring the highest standards of workmanship.',
+                      'We provide selected workers with full pre-deployment training, including workplace safety instruction, safety procedures, workplace culture orientation, and preparation for certification exams such as the Dutch VCA qualification.',
                 ),
                 FeatureCard(
                   icon: Icons.description_rounded,
                   title: 'Bureaucratic Pre-Screening',
                   description:
-                      'Evaluating legal feasibility for international deployment.',
-                ),
-                FeatureCard(
-                  icon: Icons.language_rounded,
-                  title: 'Language & Cultural Orientation',
-                  description:
-                      'Providing basic training to ensure a smooth transition.',
+                      'We manage the bureaucratic preparation process, including document verification, work permits, and medical clearances.',
                 ),
               ],
             ),

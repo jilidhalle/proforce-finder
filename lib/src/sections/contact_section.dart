@@ -40,11 +40,7 @@ class ContactSection extends StatelessWidget {
             if (isCompact) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  intro,
-                  const SizedBox(height: 30),
-                  form,
-                ],
+                children: [intro, const SizedBox(height: 30), form],
               );
             }
 
@@ -154,9 +150,7 @@ class _ContactFormState extends State<_ContactForm> {
     }
 
     messenger.showSnackBar(
-      const SnackBar(
-        content: Text('Something went wrong. Please try again.'),
-      ),
+      const SnackBar(content: Text('Something went wrong. Please try again.')),
     );
   }
 
@@ -207,8 +201,9 @@ class _ContactFormState extends State<_ContactForm> {
               child: PrimaryButton(
                 label: _isSending ? 'Sending...' : 'Send Inquiry',
                 onPressed: _isSending ? null : _submitForm,
-                icon:
-                    _isSending ? Icons.hourglass_top_rounded : Icons.send_rounded,
+                icon: _isSending
+                    ? Icons.hourglass_top_rounded
+                    : Icons.send_rounded,
               ),
             ),
           ],

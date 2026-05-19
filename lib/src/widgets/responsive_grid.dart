@@ -16,11 +16,13 @@ class ResponsiveGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final columnCount =
-            (constraints.maxWidth / minItemWidth).floor().clamp(1, 4);
+        final columnCount = (constraints.maxWidth / minItemWidth).floor().clamp(
+          1,
+          4,
+        );
         final itemWidth =
             (constraints.maxWidth - (spacing * (columnCount - 1))) /
-                columnCount;
+            columnCount;
 
         return Wrap(
           spacing: spacing,

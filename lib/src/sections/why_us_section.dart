@@ -12,49 +12,105 @@ class WhyUsSection extends StatelessWidget {
     return Container(
       color: AppColors.white,
       child: SiteShell(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 78),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SectionHeader(
-              eyebrow: 'Why Choose Us',
-              title: 'Built for project-critical staffing decisions',
-              description:
-                  'A focused alternative to generic recruitment, centered on construction expertise, readiness, and reliable project matching.',
-            ),
-            const SizedBox(height: 36),
-            const _TrustBlock(
-              icon: Icons.apartment_rounded,
-              title: 'Modern Industry Experience',
-              description:
-                  'We exclusively source professionals with proven experience in modern construction environments and advanced building standards.',
-            ),
-            const _TrustBlock(
-              icon: Icons.tune_rounded,
-              title: 'Tailor-Made Solutions',
-              description:
-                  "Delivering the exact professional match for your project's requirements.",
-            ),
-            const _TrustBlock(
-              icon: Icons.schedule_rounded,
-              title: 'Efficiency & Reliability',
-              description:
-                  'We handle the complexity of recruitment so you can stay focused on your deadlines.',
-            ),
-            const SizedBox(height: 20),
-            Wrap(
-              spacing: 12,
-              runSpacing: 12,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 64),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final isCompact = constraints.maxWidth < 900;
+            const content = _WhyUsContent();
+            const image = _WhyUsImage();
+
+            if (isCompact) {
+              return const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [content, SizedBox(height: 34), image],
+              );
+            }
+
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: const [
-                _Badge(label: 'Vetted Professionals'),
-                _Badge(label: 'International Readiness'),
-                _Badge(label: 'Project-Focused Matching'),
+                Expanded(flex: 11, child: content),
+                SizedBox(width: 40),
+                Expanded(
+                  flex: 9,
+                  child: SizedBox(
+                    height: 320,
+                    child: _WhyUsImage(fillHeight: true),
+                  ),
+                ),
               ],
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
+  }
+}
+
+class _WhyUsContent extends StatelessWidget {
+  const _WhyUsContent();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SectionHeader(
+          eyebrow: '',
+          title: 'Why Choose Us?',
+        ),
+        SizedBox(height: 24),
+        _TrustBlock(
+          icon: Icons.apartment_rounded,
+          title: 'Proven Urban Construction Expertise',
+          description:
+              'We bring extensive experience in urban construction, with proven involvement in advanced building projects in major cities such as Tel Aviv, including work on high-rise developments.',
+        ),
+        _TrustBlock(
+          icon: Icons.verified_rounded,
+          title: 'Maximum Efficiency & Peace of Mind',
+          description:
+              'We provide a complete end-to-end solution, allowing clients to focus on their operations while we handle the recruitment process, documentation, and administrative coordination.',
+        ),
+      ],
+    );
+  }
+}
+
+class _WhyUsImage extends StatelessWidget {
+  const _WhyUsImage({this.fillHeight = false});
+
+  final bool fillHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    final image = Container(
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: AppColors.line),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Image.asset(
+        'assets/building.jpeg',
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Center(
+            child: Icon(
+              Icons.apartment_rounded,
+              color: AppColors.steel.withValues(alpha: 0.7),
+              size: 58,
+            ),
+          );
+        },
+      ),
+    );
+
+    if (fillHeight) {
+      return image;
+    }
+
+    return AspectRatio(aspectRatio: 0.92, child: image);
   }
 }
 
@@ -72,8 +128,8 @@ class _TrustBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(22),
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.line),
         borderRadius: BorderRadius.circular(8),
@@ -90,46 +146,22 @@ class _TrustBlock extends StatelessWidget {
                 Text(
                   title,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: AppColors.navy,
-                        fontWeight: FontWeight.w800,
-                      ),
+                    color: AppColors.navy,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6),
                 Text(
                   description,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppColors.steel,
-                        height: 1.5,
-                      ),
+                    color: AppColors.steel,
+                    height: 1.5,
+                  ),
                 ),
               ],
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _Badge extends StatelessWidget {
-  const _Badge({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-      decoration: BoxDecoration(
-        color: AppColors.navy,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        label,
-        style: const TextStyle(
-          color: AppColors.white,
-          fontWeight: FontWeight.w700,
-        ),
       ),
     );
   }

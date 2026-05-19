@@ -23,20 +23,23 @@ class SectionHeader extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Column(
-      crossAxisAlignment:
-          centered ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+      crossAxisAlignment: centered
+          ? CrossAxisAlignment.center
+          : CrossAxisAlignment.start,
       children: [
-        Text(
-          eyebrow.toUpperCase(),
-          textAlign: centered ? TextAlign.center : TextAlign.start,
-          style: const TextStyle(
-            color: AppColors.orange,
-            fontSize: 12,
-            fontWeight: FontWeight.w800,
-            letterSpacing: 0.8,
+        if (eyebrow.isNotEmpty) ...[
+          Text(
+            eyebrow.toUpperCase(),
+            textAlign: centered ? TextAlign.center : TextAlign.start,
+            style: const TextStyle(
+              color: AppColors.orange,
+              fontSize: 12,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 0.8,
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
+          const SizedBox(height: 10),
+        ],
         Text(
           title,
           textAlign: centered ? TextAlign.center : TextAlign.start,

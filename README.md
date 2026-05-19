@@ -18,3 +18,7 @@ samples, guidance on mobile development, and a full API reference.
 ```bash
 flutter build web
 ```
+
+```bash
+firebase deploy --only hosting
+```
