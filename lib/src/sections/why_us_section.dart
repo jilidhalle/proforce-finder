@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../content/site_text.dart';
 import '../theme/app_colors.dart';
 import '../widgets/section_header.dart';
 import '../widgets/site_shell.dart';
 
 class WhyUsSection extends StatelessWidget {
-  const WhyUsSection({super.key});
+  const WhyUsSection({required this.text, super.key});
+
+  final SiteText text;
 
   @override
   Widget build(BuildContext context) {
@@ -16,22 +19,22 @@ class WhyUsSection extends StatelessWidget {
         child: LayoutBuilder(
           builder: (context, constraints) {
             final isCompact = constraints.maxWidth < 900;
-            const content = _WhyUsContent();
+            final content = _WhyUsContent(text: text);
             const image = _WhyUsImage();
 
             if (isCompact) {
-              return const Column(
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [content, SizedBox(height: 34), image],
+                children: [content, const SizedBox(height: 34), image],
               );
             }
 
             return Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
+              children: [
                 Expanded(flex: 11, child: content),
-                SizedBox(width: 40),
-                Expanded(
+                const SizedBox(width: 40),
+                const Expanded(
                   flex: 9,
                   child: SizedBox(
                     height: 320,
@@ -48,29 +51,26 @@ class WhyUsSection extends StatelessWidget {
 }
 
 class _WhyUsContent extends StatelessWidget {
-  const _WhyUsContent();
+  const _WhyUsContent({required this.text});
+
+  final SiteText text;
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionHeader(
-          eyebrow: '',
-          title: 'Why Choose Us?',
-        ),
-        SizedBox(height: 24),
+        SectionHeader(eyebrow: '', title: text.whyUsTitle),
+        const SizedBox(height: 24),
         _TrustBlock(
           icon: Icons.apartment_rounded,
-          title: 'Proven Urban Construction Expertise',
-          description:
-              'We bring extensive experience in urban construction, with proven involvement in advanced building projects in major cities such as Tel Aviv, including work on high-rise developments.',
+          title: text.whyUsItems[0].title,
+          description: text.whyUsItems[0].description,
         ),
         _TrustBlock(
           icon: Icons.verified_rounded,
-          title: 'Maximum Efficiency & Peace of Mind',
-          description:
-              'We provide a complete end-to-end solution, allowing clients to focus on their operations while we handle the recruitment process, documentation, and administrative coordination.',
+          title: text.whyUsItems[1].title,
+          description: text.whyUsItems[1].description,
         ),
       ],
     );

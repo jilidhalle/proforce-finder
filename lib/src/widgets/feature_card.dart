@@ -28,9 +28,9 @@ class FeatureCard extends StatelessWidget {
           Positioned.fill(
             child: Center(
               child: Icon(
-              icon,
-              color: AppColors.orange.withValues(alpha: 0.08),
-              size: 128,
+                icon,
+                color: AppColors.orange.withValues(alpha: 0.08),
+                size: 128,
               ),
             ),
           ),

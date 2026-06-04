@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../content/site_text.dart';
 import '../theme/app_colors.dart';
 import '../widgets/site_shell.dart';
 
 class AboutSection extends StatelessWidget {
-  const AboutSection({super.key});
+  const AboutSection({required this.text, super.key});
+
+  final SiteText text;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class AboutSection extends StatelessWidget {
           builder: (context, constraints) {
             final isCompact = constraints.maxWidth < 900;
             const imagePlaceholder = _AboutImagePlaceholder();
-            final content = _AboutContent();
+            final content = _AboutContent(text: text);
 
             if (isCompact) {
               return Column(
@@ -59,6 +62,10 @@ class AboutSection extends StatelessWidget {
 }
 
 class _AboutContent extends StatelessWidget {
+  const _AboutContent({required this.text});
+
+  final SiteText text;
+
   @override
   Widget build(BuildContext context) {
     final paragraphStyle = Theme.of(
@@ -68,9 +75,9 @@ class _AboutContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'ABOUT US',
-          style: TextStyle(
+        Text(
+          text.aboutEyebrow,
+          style: const TextStyle(
             color: AppColors.orange,
             fontSize: 12,
             fontWeight: FontWeight.w800,
@@ -80,22 +87,19 @@ class _AboutContent extends StatelessWidget {
         const SizedBox(height: 24),
         _AboutParagraph(
           icon: Icons.manage_search_rounded,
-          text:
-              'ProForce Finder specializes in recruitment for large-scale international construction projects.',
+          text: text.aboutParagraphs[0],
           style: paragraphStyle,
         ),
         const SizedBox(height: 16),
         _AboutParagraph(
           icon: Icons.groups_rounded,
-          text:
-              'We focus on identifying and preparing professional teams for complex global projects.',
+          text: text.aboutParagraphs[1],
           style: paragraphStyle,
         ),
         const SizedBox(height: 16),
         _AboutParagraph(
           icon: Icons.verified_user_rounded,
-          text:
-              'Our goal is to ensure every worker is technically skilled, culturally prepared, and logistically ready for success abroad.',
+          text: text.aboutParagraphs[2],
           style: paragraphStyle,
         ),
       ],

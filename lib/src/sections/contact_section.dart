@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../config/app_config.dart';
+import '../content/site_text.dart';
 import '../services/contact_form_service.dart';
 import '../theme/app_colors.dart';
 import '../widgets/primary_button.dart';
@@ -8,7 +9,9 @@ import '../widgets/section_header.dart';
 import '../widgets/site_shell.dart';
 
 class ContactSection extends StatelessWidget {
-  const ContactSection({super.key});
+  const ContactSection({required this.text, super.key});
+
+  final SiteText text;
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +23,19 @@ class ContactSection extends StatelessWidget {
           builder: (context, constraints) {
             final isCompact = constraints.maxWidth < 820;
 
-            final intro = const Column(
+            final intro = Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SectionHeader(
-                  eyebrow: 'Contact',
-                  title: "Let's Build Your Next Team",
-                  description:
-                      "Tell us what kind of team you need, and we'll help you find the right professionals.",
+                  eyebrow: text.contactEyebrow,
+                  title: text.contactTitle,
+                  description: text.contactDescription,
                   onDark: true,
                 ),
               ],
             );
 
-            final form = const _ContactForm();
+            final form = _ContactForm(text: text);
 
             if (isCompact) {
               return Column(
@@ -58,7 +60,9 @@ class ContactSection extends StatelessWidget {
 }
 
 class _ContactForm extends StatefulWidget {
-  const _ContactForm();
+  const _ContactForm({required this.text});
+
+  final SiteText text;
 
   @override
   State<_ContactForm> createState() => _ContactFormState();
@@ -112,16 +116,12 @@ class _ContactFormState extends State<_ContactForm> {
       _messageController.clear();
 
       messenger.showSnackBar(
-        const SnackBar(
-          content: Text('Thank you. Your inquiry has been sent successfully.'),
-        ),
+        SnackBar(content: Text(widget.text.successMessage)),
       );
       return;
     }
 
-    messenger.showSnackBar(
-      const SnackBar(content: Text('Something went wrong. Please try again.')),
-    );
+    messenger.showSnackBar(SnackBar(content: Text(widget.text.failureMessage)));
   }
 
   @override
@@ -139,37 +139,37 @@ class _ContactFormState extends State<_ContactForm> {
             TextFormField(
               controller: _nameController,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(labelText: 'Name'),
+              decoration: InputDecoration(labelText: widget.text.nameLabel),
               validator: _validateRequired,
             ),
             const SizedBox(height: 14),
             TextFormField(
               controller: _businessController,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                labelText: 'Business / Organization',
-              ),
+              decoration: InputDecoration(labelText: widget.text.businessLabel),
             ),
             const SizedBox(height: 14),
             TextFormField(
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(labelText: 'Email Address'),
+              decoration: InputDecoration(labelText: widget.text.emailLabel),
               validator: _validateEmail,
             ),
             const SizedBox(height: 14),
             TextFormField(
               controller: _messageController,
               maxLines: 5,
-              decoration: const InputDecoration(labelText: 'Message'),
+              decoration: InputDecoration(labelText: widget.text.messageLabel),
               validator: _validateMessage,
             ),
             const SizedBox(height: 20),
             Align(
               alignment: Alignment.centerLeft,
               child: PrimaryButton(
-                label: _isSending ? 'Sending...' : 'Send Inquiry',
+                label: _isSending
+                    ? widget.text.sending
+                    : widget.text.sendInquiry,
                 onPressed: _isSending ? null : _submitForm,
                 icon: _isSending
                     ? Icons.hourglass_top_rounded
@@ -184,7 +184,7 @@ class _ContactFormState extends State<_ContactForm> {
 
   String? _validateRequired(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'This field is required.';
+      return widget.text.requiredField;
     }
     return null;
   }
@@ -194,10 +194,10 @@ class _ContactFormState extends State<_ContactForm> {
     final emailPattern = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
 
     if (trimmed.isEmpty) {
-      return 'Email address is required.';
+      return widget.text.emailRequired;
     }
     if (!emailPattern.hasMatch(trimmed)) {
-      return 'Enter a valid email address.';
+      return widget.text.emailInvalid;
     }
     return null;
   }
@@ -205,10 +205,10 @@ class _ContactFormState extends State<_ContactForm> {
   String? _validateMessage(String? value) {
     final trimmed = value?.trim() ?? '';
     if (trimmed.isEmpty) {
-      return 'Message is required.';
+      return widget.text.messageRequired;
     }
     if (trimmed.length < 10) {
-      return 'Please add a little more detail.';
+      return widget.text.messageTooShort;
     }
     return null;
   }

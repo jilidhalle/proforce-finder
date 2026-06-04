@@ -11,9 +11,18 @@ class NavLink {
 }
 
 class SiteNavigationBar extends StatelessWidget {
-  const SiteNavigationBar({required this.links, super.key});
+  const SiteNavigationBar({
+    required this.links,
+    required this.languageToggleLabel,
+    required this.openNavigationLabel,
+    required this.onToggleLanguage,
+    super.key,
+  });
 
   final List<NavLink> links;
+  final String languageToggleLabel;
+  final String openNavigationLabel;
+  final VoidCallback onToggleLanguage;
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +34,31 @@ class SiteNavigationBar extends StatelessWidget {
           const _BrandMark(),
           const Spacer(),
           if (isCompact)
-            _NavigationMenuButton(links: links)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _LanguageToggle(
+                  label: languageToggleLabel,
+                  onPressed: onToggleLanguage,
+                ),
+                const SizedBox(width: 6),
+                _NavigationMenuButton(
+                  links: links,
+                  tooltip: openNavigationLabel,
+                ),
+              ],
+            )
           else
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 for (final link in links)
                   TextButton(onPressed: link.onTap, child: Text(link.label)),
+                const SizedBox(width: 8),
+                _LanguageToggle(
+                  label: languageToggleLabel,
+                  onPressed: onToggleLanguage,
+                ),
               ],
             ),
         ],
@@ -41,14 +68,15 @@ class SiteNavigationBar extends StatelessWidget {
 }
 
 class _NavigationMenuButton extends StatelessWidget {
-  const _NavigationMenuButton({required this.links});
+  const _NavigationMenuButton({required this.links, required this.tooltip});
 
   final List<NavLink> links;
+  final String tooltip;
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<NavLink>(
-      tooltip: 'Open navigation',
+      tooltip: tooltip,
       icon: const Icon(Icons.menu_rounded, color: AppColors.navy),
       position: PopupMenuPosition.under,
       onSelected: (link) => link.onTap(),
@@ -58,6 +86,28 @@ class _NavigationMenuButton extends StatelessWidget {
             PopupMenuItem(value: link, child: Text(link.label)),
         ];
       },
+    );
+  }
+}
+
+class _LanguageToggle extends StatelessWidget {
+  const _LanguageToggle({required this.label, required this.onPressed});
+
+  final String label;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      onPressed: onPressed,
+      style: OutlinedButton.styleFrom(
+        minimumSize: const Size(44, 38),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        foregroundColor: AppColors.navy,
+        side: const BorderSide(color: AppColors.line),
+        textStyle: const TextStyle(fontWeight: FontWeight.w800),
+      ),
+      child: Text(label),
     );
   }
 }

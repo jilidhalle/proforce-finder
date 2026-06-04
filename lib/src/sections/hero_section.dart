@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../content/site_text.dart';
 import '../theme/app_colors.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/site_shell.dart';
 
 class HeroSection extends StatelessWidget {
   const HeroSection({
+    required this.text,
     required this.onRequestTalent,
     super.key,
   });
 
+  final SiteText text;
   final VoidCallback onRequestTalent;
 
   @override
@@ -23,6 +26,7 @@ class HeroSection extends StatelessWidget {
             final isCompact = constraints.maxWidth < 840;
 
             final content = _HeroCopy(
+              text: text,
               onRequestTalent: onRequestTalent,
             );
             const visual = _ConstructionVisual();
@@ -49,8 +53,9 @@ class HeroSection extends StatelessWidget {
 }
 
 class _HeroCopy extends StatelessWidget {
-  const _HeroCopy({required this.onRequestTalent});
+  const _HeroCopy({required this.text, required this.onRequestTalent});
 
+  final SiteText text;
   final VoidCallback onRequestTalent;
 
   @override
@@ -60,9 +65,9 @@ class _HeroCopy extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Construction Talent Scouting',
-            style: TextStyle(
+          Text(
+            text.heroEyebrow,
+            style: const TextStyle(
               color: AppColors.orange,
               fontSize: 13,
               fontWeight: FontWeight.w800,
@@ -71,7 +76,7 @@ class _HeroCopy extends StatelessWidget {
           ),
           const SizedBox(height: 18),
           Text(
-            'ProForce Finder: Precision Talent Scouting for Global Construction',
+            text.heroTitle,
             style: Theme.of(context).textTheme.displaySmall?.copyWith(
               color: AppColors.white,
               fontSize: 52,
@@ -81,7 +86,7 @@ class _HeroCopy extends StatelessWidget {
           ),
           const SizedBox(height: 22),
           Text(
-            'Connecting international construction firms with experienced and vetted professionals.',
+            text.heroSubtitle,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
               color: AppColors.white.withValues(alpha: 0.78),
               height: 1.5,
@@ -93,7 +98,7 @@ class _HeroCopy extends StatelessWidget {
             runSpacing: 14,
             children: [
               PrimaryButton(
-                label: 'Contact Us',
+                label: text.heroCta,
                 onPressed: onRequestTalent,
                 icon: Icons.assignment_ind_rounded,
               ),

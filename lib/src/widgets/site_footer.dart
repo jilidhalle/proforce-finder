@@ -4,7 +4,9 @@ import '../theme/app_colors.dart';
 import 'site_shell.dart';
 
 class SiteFooter extends StatelessWidget {
-  const SiteFooter({super.key});
+  const SiteFooter({required this.text, super.key});
+
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +14,7 @@ class SiteFooter extends StatelessWidget {
       color: AppColors.navy,
       child: SiteShell(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-        child: const Text(
-          'ProForce Finder - Construction staffing for global projects',
-          style: TextStyle(color: AppColors.white),
-        ),
+        child: Text(text, style: const TextStyle(color: AppColors.white)),
       ),
     );
   }
