@@ -73,16 +73,14 @@ class _BrandMark extends StatelessWidget {
         Container(
           width: 38,
           height: 38,
+          clipBehavior: Clip.antiAlias,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: AppColors.navy,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: AppColors.line),
           ),
-          child: const Icon(
-            Icons.engineering_rounded,
-            color: AppColors.orange,
-            size: 22,
-          ),
+          child: Image.asset('assets/proforce-logo.png', fit: BoxFit.cover),
         ),
         const SizedBox(width: 12),
         const Text(

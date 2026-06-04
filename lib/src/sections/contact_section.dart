@@ -30,8 +30,6 @@ class ContactSection extends StatelessWidget {
                       "Tell us what kind of team you need, and we'll help you find the right professionals.",
                   onDark: true,
                 ),
-                SizedBox(height: 24),
-                _ContactNote(),
               ],
             );
 
@@ -54,34 +52,6 @@ class ContactSection extends StatelessWidget {
             );
           },
         ),
-      ),
-    );
-  }
-}
-
-class _ContactNote extends StatelessWidget {
-  const _ContactNote();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: AppColors.white.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.white.withValues(alpha: 0.12)),
-      ),
-      child: const Row(
-        children: [
-          Icon(Icons.lock_outline_rounded, color: AppColors.orange),
-          SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              'Placeholder contact details can be added here in a later iteration.',
-              style: TextStyle(color: AppColors.white, height: 1.45),
-            ),
-          ),
-        ],
       ),
     );
   }
