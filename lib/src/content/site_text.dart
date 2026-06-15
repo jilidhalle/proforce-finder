@@ -103,7 +103,7 @@ const siteTextByLanguage = {
     heroCta: 'Contact Us',
     aboutEyebrow: 'ABOUT US',
     aboutParagraphs: [
-      'ProForce Finder specializes in recruitment for large-scale international construction projects.',
+      'ProForce Finder specializes in recruitment for international construction projects.',
       'We focus on identifying and preparing professional teams for complex global projects.',
       'Our goal is to ensure every worker is technically skilled, culturally prepared, and logistically ready for success abroad.',
     ],
@@ -112,7 +112,7 @@ const siteTextByLanguage = {
       FeatureText(
         title: 'Custom Workforce Recruitment & On-Site Evaluation',
         description:
-            "We identify and recruit construction professionals based on each client's specific needs. Our team conducts on-site evaluations in Portugal to ensure every candidate meets our professional standards before placement.",
+            "We identify and recruit construction professionals based on each client's specific needs. Our team conducts on-site evaluations to ensure every candidate meets our professional standards before placement.",
       ),
       FeatureText(
         title: 'Comprehensive Pre-Deployment Preparation',
@@ -173,7 +173,7 @@ const siteTextByLanguage = {
     heroCta: 'צור קשר',
     aboutEyebrow: 'אודותינו',
     aboutParagraphs: [
-      'ProForce Finder מתמחה בגיוס כוח אדם לפרויקטי בנייה בינלאומיים רחבי היקף.',
+      'ProForce Finder מתמחה בגיוס כוח אדם לפרויקטי בנייה בינלאומיים.',
       'אנחנו מתמקדים באיתור ובהכנה של צוותים מקצועיים לפרויקטים גלובליים מורכבים.',
       'המטרה שלנו היא לוודא שכל עובד מגיע עם יכולת טכנית, מוכנות תרבותית והיערכות לוגיסטית להצלחה בחו"ל.',
     ],
@@ -182,7 +182,7 @@ const siteTextByLanguage = {
       FeatureText(
         title: 'גיוס כוח אדם מותאם והערכה בשטח',
         description:
-            'אנחנו מאתרים ומגייסים אנשי מקצוע לענף הבנייה בהתאם לצרכים המדויקים של כל לקוח. הצוות שלנו מבצע הערכות בשטח בפורטוגל כדי לוודא שכל מועמד עומד בסטנדרטים המקצועיים שלנו לפני השמה.',
+            'אנחנו מאתרים ומגייסים אנשי מקצוע לענף הבנייה בהתאם לצרכים המדויקים של כל לקוח. הצוות שלנו מבצע הערכות בשטח כדי לוודא שכל מועמד עומד בסטנדרטים המקצועיים שלנו לפני השמה.',
       ),
       FeatureText(
         title: 'הכנה מקיפה לפני יציאה לפרויקט',
